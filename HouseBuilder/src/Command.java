@@ -183,20 +183,42 @@ public class Command{
         }
     }
 
-    private void houseInformation(){
-        System.out.print("Put houses number:");
-        Scanner in=new Scanner(System.in);
-        int number=in.nextInt();
-        House house=this.get(number);
-        if(house!=null) {
-            System.out.println("Number: " + house.getNumber());
-            System.out.println("Square: " + house.getSqr());
-            System.out.println("Population: " + house.getTenants());
-            System.out.println("Floors: " + house.getFloors());
-            System.out.println("Apartments: " + house.getApartments());
+    private void houseInformation() {
+        try {
+            System.out.print("Put houses number:");
+            Scanner in = new Scanner(System.in);
+            int number = in.nextInt();
+            House house = this.get(number);
+            System.out.print("""
+                    Chose parameter:
+                    1.Number
+                    2.Square
+                    3.Population
+                    4.Floors
+                    5.Apartments
+                    6.All information
+                    """);
+            int parameter = in.nextInt();
+            if (house != null) {
+                switch (parameter) {
+                    case (1) -> System.out.println("Number: " + house.getNumber());
+                    case (2) -> System.out.println("Square: " + house.getSqr());
+                    case (3) -> System.out.println("Population: " + house.getTenants());
+                    case (4) -> System.out.println("Floors: " + house.getFloors());
+                    case (5) -> System.out.println("Apartments: " + house.getApartments());
+                    case (6) -> {
+                        System.out.println("Number: " + house.getNumber());
+                        System.out.println("Square: " + house.getSqr());
+                        System.out.println("Population: " + house.getTenants());
+                        System.out.println("Floors: " + house.getFloors());
+                        System.out.println("Apartments: " + house.getApartments());
+                    }
+                }
+            } else
+                System.err.println("Selected house does not exist!");
+        } catch (InputMismatchException e) {
+            System.err.println("Command stopped due to incorrect data entry!");
         }
-        else
-            System.err.println("Selected house does not exist!");
     }
 
     private void cityInformation(){
