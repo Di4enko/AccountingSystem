@@ -1,7 +1,10 @@
 package com.app;
 
-import com.House;
+import com.house.*;
+import com.City;
 import com.functional.*;
+
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -33,10 +36,11 @@ public class Command extends UserInterface{
             if(sqrMPrice!=0 && budget/sqrMPrice >= apartments && apartments!=0) {
                 House house = new House(budget, sqrMPrice, apartments);
                 city.houses.add(house);
+                ++City.housesNumber;
                 System.out.println("You build house");
             }else
                 System.out.println("You cant build house with that parameters.");
-        }catch (InputMismatchException e){
+        }catch (InputMismatchException | IOException e){
             System.err.println("Command stopped due to incorrect data entry!");
         }
     }
@@ -46,11 +50,12 @@ public class Command extends UserInterface{
         int number=in.nextInt();
         House house=city.getHouse(number);
         if(house!=null){
-            for (House.Floor floor: house.floors) {
+            for (Floor floor: house.floors) {
                 floor.apartments.clear();
             }
             house.floors.clear();
             city.houses.remove(house);
+            --City.housesNumber;
             System.out.println("You delete house №"+number);
         }
         else
@@ -75,9 +80,9 @@ public class Command extends UserInterface{
                     case (1) -> {
                         int i = HouseFunctional.compHousePop(house1,house2);
                         if (i == 1) {
-                            System.out.printf("%d house has more number of tenants than %d house\n",number1,number2);
+                            System.out.printf("%d house has more tenants than %d house\n",number1,number2);
                         } else if (i == -1) {
-                            System.out.printf("%d house has less number of tenants than %d house\n",number1,number2);
+                            System.out.printf("%d house has less tenants than %d house\n",number1,number2);
                         } else
                             System.out.printf("%d and %d houses have the same number of tenants\n",number1,number2);
 
@@ -85,7 +90,7 @@ public class Command extends UserInterface{
                     case (2) -> {
                         int i = HouseFunctional.compHouseSqr(house1,house2);
                         if (i == 1) {
-                            System.out.printf("%d house has more square than %d house\n",number1,number2);
+                            System.out.printf("%d house has larger square than %d house\n",number1,number2);
                         } else if (i == -1) {
                             System.out.printf("%d house has less square than %d house\n",number1,number2);
                         } else
@@ -94,9 +99,9 @@ public class Command extends UserInterface{
                     case (3) -> {
                         int i = HouseFunctional.compHouseFlor(house1,house2);
                         if (i == 1) {
-                            System.out.printf("%d house has more numbers of floors than %d house\n",number1,number2);
+                            System.out.printf("%d house has more floors than %d house\n",number1,number2);
                         } else if (i == -1) {
-                            System.out.printf("%d house has less number of floors than %d house\n",number1,number2);
+                            System.out.printf("%d house has less floors than %d house\n",number1,number2);
                         } else
                             System.out.printf("%d and %d houses have the same number of floors\n",number1,number2);
                     }
@@ -104,7 +109,7 @@ public class Command extends UserInterface{
                 }
             } else
                 System.err.println("One or both of the selected houses do not exist!");
-        }catch (InputMismatchException e){
+        }catch (InputMismatchException | IOException e){
             System.err.println("Command stopped due to incorrect data entry!");
         }
     }
@@ -130,7 +135,7 @@ public class Command extends UserInterface{
                             if (i == 1) {
                                 System.out.printf("The square of the %d apartment is larger than that of the %d\n", apart1Number, apart2Number);
                             } else if (i == -1) {
-                                System.out.printf("%d apartment has less number of tenants than %d\n", apart1Number, apart2Number);
+                                System.out.printf("%d apartment has less square than %d\n", apart1Number, apart2Number);
                             } else
                                 System.out.printf("%d and %d apartments have the same square\n", apart1Number, apart2Number);
                         } catch (InputMismatchException e) {
@@ -141,7 +146,7 @@ public class Command extends UserInterface{
                         try {
                             int i = ApartmentFunctional.compApartTen(house.getApartment(apart1Number),house.getApartment(apart2Number));
                             if (i == 1) {
-                                System.out.printf("The number of tenants of the %d apartment is larger than that of the %d\n", apart1Number, apart2Number);
+                                System.out.printf("Number of tenants of the %d apartment is larger than that of the %d\n", apart1Number, apart2Number);
                             } else if (i == -1) {
                                 System.out.printf("%d apartment has less number of tenants than %d\n", apart1Number, apart2Number);
                             } else
@@ -192,13 +197,14 @@ public class Command extends UserInterface{
             } else {
                 System.err.println("Selected house does not exist!");
             }
-        } catch (InputMismatchException e) {
+        } catch (InputMismatchException | IOException e) {
             System.err.println("Command stopped due to incorrect data entry!");
         }
     }
 
     private static void cityInformation(){
-        System.out.println("Number of house is "+city.houses.size());
+        city.citySize();
+        System.out.println("Number of house is "+ City.housesNumber);
         if(!city.houses.isEmpty()) {
             System.out.print("House numbers are:\n");
             for (House house : city.houses)
