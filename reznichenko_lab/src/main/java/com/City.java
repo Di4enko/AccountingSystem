@@ -1,22 +1,15 @@
 package com;
 
 import com.house.House;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 
 public class City {
     public Set<House> houses;
     public static int housesNumber;
+
     public City(){
         houses=new LinkedHashSet<>();
-    }
-
-    public void clearCity(){
-        if(!houses.isEmpty()){
-            houses.clear();
-        }
     }
 
     public void citySize(){

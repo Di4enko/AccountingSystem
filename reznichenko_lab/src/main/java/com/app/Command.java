@@ -3,10 +3,8 @@ package com.app;
 import com.house.*;
 import com.City;
 import com.functional.*;
-
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Command extends UserInterface{
 
@@ -25,21 +23,13 @@ public class Command extends UserInterface{
     }
 
     private static void buildHouse(){
-        Scanner in = new Scanner(System.in);
         try {
-            System.out.print("Input a budget: ");
-            double budget = in.nextDouble();
-            System.out.print("Input a price for per square metre: ");
-            double sqrMPrice = in.nextDouble();
-            System.out.print("Input a number of apartments per floor: ");
-            int apartments = in.nextInt();
-            if(sqrMPrice!=0 && budget/sqrMPrice >= apartments && apartments!=0) {
-                House house = new House(budget, sqrMPrice, apartments);
-                city.houses.add(house);
-                ++City.housesNumber;
-                System.out.println("You build house");
-            }else
-                System.out.println("You cant build house with that parameters.");
+            System.out.println("If you want to build a house based on its budget input 'random'.\n" +
+                    "If you want to build a house with manual input of parameters input 'parameters'.");
+            String methode=in.nextLine();
+            if(methode.equals("random")){city.houses.add(HouseBuilder.createRandomHouse());}
+            else if(methode.equals("parameters")){city.houses.add(HouseBuilder.createHouseWithParameters());}
+            else System.out.println("This methode does not exist");
         }catch (InputMismatchException | IOException e){
             System.err.println("Command stopped due to incorrect data entry!");
         }
@@ -97,7 +87,7 @@ public class Command extends UserInterface{
                             System.out.printf("%d and %d houses have the same square\n",number1,number2);
                     }
                     case (3) -> {
-                        int i = HouseFunctional.compHouseFlor(house1,house2);
+                        int i = HouseFunctional.compHouseFloor(house1,house2);
                         if (i == 1) {
                             System.out.printf("%d house has more floors than %d house\n",number1,number2);
                         } else if (i == -1) {
@@ -180,20 +170,20 @@ public class Command extends UserInterface{
                         6.All information
                         """);
                 int parameter = in.nextInt();
-                    switch (parameter) {
-                        case (1) -> System.out.println("Number: " + house.getNumber());
-                        case (2) -> System.out.println("Square: " + HouseFunctional.countSqr(house));
-                        case (3) -> System.out.println("Population: " + HouseFunctional.countTenants(house));
-                        case (4) -> System.out.println("Floors: " + house.getFloors());
-                        case (5) -> System.out.println("Apartments: " + HouseFunctional.countApartments(house));
-                        case (6) -> {
-                            System.out.println("Number: " + house.getNumber());
-                            System.out.println("Square: " + HouseFunctional.countSqr(house));
-                            System.out.println("Population: " + HouseFunctional.countTenants(house));
-                            System.out.println("Floors: " + house.getFloors());
-                            System.out.println("Apartments: " + HouseFunctional.countApartments(house));
-                        }
+                switch (parameter) {
+                    case (1) -> System.out.println("Number: " + house.getNumber());
+                    case (2) -> System.out.println("Square: " + HouseFunctional.countSqr(house));
+                    case (3) -> System.out.println("Population: " + HouseFunctional.countTenants(house));
+                    case (4) -> System.out.println("Floors: " + house.getFloors());
+                    case (5) -> System.out.println("Apartments: " + HouseFunctional.countApartments(house));
+                    case (6) -> {
+                        System.out.println("Number: " + house.getNumber());
+                        System.out.println("Square: " + HouseFunctional.countSqr(house));
+                        System.out.println("Population: " + HouseFunctional.countTenants(house));
+                        System.out.println("Floors: " + house.getFloors());
+                        System.out.println("Apartments: " + HouseFunctional.countApartments(house));
                     }
+                }
             } else {
                 System.err.println("Selected house does not exist!");
             }

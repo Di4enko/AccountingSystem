@@ -1,7 +1,6 @@
 package com.app;
 
 import java.util.Scanner;
-
 import com.City;
 
 public class UserInterface {
@@ -24,14 +23,14 @@ public class UserInterface {
     }
 
     protected void working(){
-            String inputs = in.nextLine();
-            if (!inputs.isBlank()) {
-                Command.command(inputs);
-                if (command!= null) {
-                    Command.accept();
-                } else {
-                    System.err.println("Incorrect command!\nEnter help to see the list of possible commands.");
-                }
+        String inputs = in.nextLine();
+        if (!inputs.isBlank()) {
+            Command.command(inputs);
+            if (command!= null) {
+                Command.accept();
+            } else {
+                System.err.println("Incorrect command!\nEnter help to see the list of possible commands.");
             }
         }
     }
+}

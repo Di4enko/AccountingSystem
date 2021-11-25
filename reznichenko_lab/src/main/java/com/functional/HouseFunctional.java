@@ -3,10 +3,20 @@ package com.functional;
 import com.house.Apartment;
 import com.house.Floor;
 import com.house.House;
-
 import java.io.IOException;
 
 public class HouseFunctional {
+
+    public static int countFloors(House house) throws IOException {
+        if (house == null) {
+            throw new IOException();
+        }
+        int floorsNumber = 0;
+        for (Floor floor : house.floors) {
+            ++floorsNumber;
+        }
+        return floorsNumber;
+    }
 
     public static double countSqr(House house) throws IOException {
         if(house==null){
@@ -51,7 +61,7 @@ public class HouseFunctional {
         return Integer.compare(countTenants(house1), countTenants(house2));
     }
 
-    public static int compHouseFlor(House house1, House house2) {
+    public static int compHouseFloor(House house1, House house2) throws IOException{
         return Integer.compare(house1.getFloors(), house2.getFloors());
     }
 

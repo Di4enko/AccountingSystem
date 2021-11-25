@@ -1,30 +1,28 @@
 package com.house;
 
-import com.functional.HouseFunctional;
-
-import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class House{
-    private final int number;
-    private final int floorsNumber;
+    private int number;
+    private int floorsNumber;
     private static int counter=0;
     public Set<Floor> floors;
 
-    public House(double budget, double perSqrMPrice, int apartPerFloor) throws IOException {
+    public House(){
         floors=new LinkedHashSet<>();
-        double planHouseSqr = Math.ceil(budget / perSqrMPrice);
-        while (planHouseSqr - HouseFunctional.countSqr(this) > 0) {
-            Floor floor = new Floor(apartPerFloor);
-            floors.add(floor);
-        }
-        if(planHouseSqr< HouseFunctional.countSqr(this)) {
-            floors.remove(floors.size() - 1);
-        }
-        this.number=++counter;
-        this.floorsNumber =floors.size();
-        Apartment.zeroingCounter();
+    }
+
+    public void setNumber(int number){
+        this.number=number;
+    }
+
+    public void setFloorsNumber(int floorsNumber){
+        this.floorsNumber=floorsNumber;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public Apartment getApartment(int number){
@@ -39,8 +37,12 @@ public class House{
         return floorsNumber;
     }
 
-    public int getNumber() {
-        return number;
+    public static int getCounter(){
+        return counter;
+    }
+
+    public static void plusCounter(){
+        ++counter;
     }
 
     public static void zeroingCounter(){

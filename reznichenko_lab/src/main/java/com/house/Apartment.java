@@ -1,28 +1,24 @@
 package com.house;
 
-import java.util.LinkedHashSet;
-
 public class Apartment{
-    private final double square;
-    private final int tenants;
-    private final int number;
+    private double square;
+    private int tenants;
+    private int number;
     private static int counter=0;
-    public final int MIN_SQR=10;//minimal sqr for per person
+    public static final int MIN_SQR=10;//minimal sqr for per person
 
-    protected Apartment(){
-        square=10+Math.random()*50;
-        tenants=(int)Math.floor(this.square/MIN_SQR);
-        number =++counter;
+    public Apartment(){}
+
+    public void setNumber(int number){
+        this.number=number;
     }
 
-    protected Apartment(double square,int tenants){
+    public void setSquare(double square){
         this.square=square;
-        this.tenants=tenants;
-        number=++counter;
     }
 
-    public static void zeroingCounter(){
-        counter=0;
+    public void setTenants(int tenants){
+        this.tenants=tenants;
     }
 
     public int getTenants(){
@@ -35,6 +31,36 @@ public class Apartment{
 
     public int getNumber() {
         return number;
+    }
+
+    public static void zeroingCounter(){
+        counter=0;
+    }
+
+    public static void plusCounter(){
+        ++counter;
+    }
+
+    public static int getCounter(){
+        return counter;
+    }
+
+    public static Apartment createApartmentRandom() {
+        Apartment.plusCounter();
+        Apartment apartment = new Apartment();
+        apartment.setSquare(Math.random() * 10 + 50);
+        apartment.setNumber(Apartment.getCounter());
+        apartment.setTenants((int) (apartment.getSquare() % Apartment.MIN_SQR));
+        return apartment;
+    }
+
+    public static Apartment createApartmentWithParameters(double square, int tenants, int number) {
+        Apartment apartment=new Apartment();
+        apartment.setTenants(tenants);
+        apartment.setSquare(square);
+        apartment.setNumber(number);
+        Apartment.plusCounter();
+        return apartment;
     }
 }
 

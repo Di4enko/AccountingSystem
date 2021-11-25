@@ -5,15 +5,14 @@ import java.util.Set;
 
 public class Floor {
     public Set<Apartment> apartments;
-    protected static int number;
 
-    protected Floor(int apartPerFloor) {
+    public Floor() {
         apartments = new LinkedHashSet<>();
-        for (int i = 0; i < apartPerFloor; i++) {
+    }
 
-            Apartment apartment = new Apartment();
-            apartments.add(apartment);
-            ++number;
-        }
+    public static Floor floor() {
+        Floor floor=new Floor();
+        floor.apartments = new LinkedHashSet<>();
+        return floor;
     }
 }

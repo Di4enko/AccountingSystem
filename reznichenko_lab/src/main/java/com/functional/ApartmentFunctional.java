@@ -1,6 +1,9 @@
 package com.functional;
+
 import com.house.Apartment;
+
 public class ApartmentFunctional {
+
     public static int compApartSqr(Apartment apartment1, Apartment apartment2){
         return Double.compare(apartment1.getSquare(), apartment2.getSquare());
     }
