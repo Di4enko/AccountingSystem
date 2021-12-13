@@ -1,12 +1,15 @@
 package com.app;
 
+import java.io.IOException;
 import java.util.Scanner;
 import com.City;
+import com.FileController;
 
 public class UserInterface {
     protected static boolean status;
     protected static Scanner in;
     protected static City city;
+    protected static FileController fileController;
     protected final static String[] commands={"build house","delete house","compare houses",
             "compare apartments","house information","city information", "clear city", "help", "exit"};
     protected static String command;
@@ -14,8 +17,17 @@ public class UserInterface {
     public UserInterface(){
         status=true;
         in=new Scanner(System.in);
-        city=new City();
-        System.out.println("Hello!\nEnter 'help' to see the list of possible commands.");
+        System.out.println("Hello!\nEnter name for your new city: ");
+        String name=in.next();
+        city=new City(name);
+        try {
+            String path="D:\\Учеба\\программирование\\" +
+                    "Java_projects\\AccountingSystem\\Cites\\"+name;
+            fileController = new FileController(path);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        System.out.println("Great! Enter 'help' to see the list of possible commands.");
     }
 
     protected boolean getStatus(){

@@ -1,0 +1,5 @@
+Number: №1
+Square: 231
+Population: 19
+Floors: 3
+Apartments: 6

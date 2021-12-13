@@ -1,0 +1,5 @@
+Number: №1
+Square: 172
+Population: 21
+Floors: 1
+Apartments: 3

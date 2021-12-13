@@ -1,0 +1,5 @@
+Number: №1
+Square: 330
+Population: 26
+Floors: 3
+Apartments: 6

@@ -45,6 +45,22 @@ public class Apartment{
         return counter;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this==obj)
+            return true;
+        if(obj instanceof Apartment) {
+            if(!(((Apartment) obj).number == this.number))
+                return false;
+            if(!(((Apartment) obj).tenants == this.tenants))
+                return false;
+            if(!(((Apartment) obj).square == this.square))
+                return false;
+            return true;
+        }
+        return false;
+    }
+
     public static Apartment createApartmentRandom() {
         Apartment.plusCounter();
         Apartment apartment = new Apartment();

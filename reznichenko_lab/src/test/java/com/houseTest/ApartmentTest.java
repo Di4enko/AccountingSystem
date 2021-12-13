@@ -1,4 +1,4 @@
-package com;
+package com.houseTest;
 
 import com.house.Apartment;
 import org.junit.jupiter.api.Assertions;

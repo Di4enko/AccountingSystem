@@ -1,0 +1,5 @@
+Number: №2
+Square: 327
+Population: 24
+Floors: 2
+Apartments: 6

@@ -1,8 +1,9 @@
 package com.app;
 
 import com.house.*;
-import com.City;
 import com.functional.*;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
@@ -13,6 +14,12 @@ public class Command extends UserInterface{
     }
 
     private static void exit(){
+        File file=new File(fileController.getMainPath());
+        if(file.exists()) {
+            if(file.delete()){
+                System.out.println("Empty city deleted.");
+            }
+        }
         status=false;
     }
 
@@ -27,8 +34,15 @@ public class Command extends UserInterface{
             System.out.println("If you want to build a house based on its budget input 'random'.\n" +
                     "If you want to build a house with manual input of parameters input 'parameters'.");
             String methode=in.nextLine();
-            if(methode.equals("random")){city.houses.add(HouseBuilder.createRandomHouse());}
-            else if(methode.equals("parameters")){city.houses.add(HouseBuilder.createHouseWithParameters());}
+            if(methode.equals("random")){
+                House house=HouseBuilder.createRandomHouse();
+                city.addHouse(house);
+                fileController.saveHouse(house);
+            }
+            else if(methode.equals("parameters")){
+                House house=HouseBuilder.createHouseWithParameters();
+                city.addHouse(house);
+                fileController.saveHouse(house);}
             else System.out.println("This methode does not exist");
         }catch (InputMismatchException | IOException e){
             System.err.println("Command stopped due to incorrect data entry!");
@@ -44,8 +58,7 @@ public class Command extends UserInterface{
                 floor.apartments.clear();
             }
             house.floors.clear();
-            city.houses.remove(house);
-            --City.housesNumber;
+            city.deleteHouse(house);
             System.out.println("You delete house №"+number);
         }
         else
@@ -159,7 +172,7 @@ public class Command extends UserInterface{
             System.out.print("Put houses number:");
             int number = in.nextInt();
             House house = city.getHouse(number);
-            if(city.houses.contains(house)){
+            if(city.contains(house)){
                 System.out.print("""
                         Chose parameter:
                         1.Number
@@ -193,17 +206,17 @@ public class Command extends UserInterface{
     }
 
     private static void cityInformation(){
-        city.citySize();
-        System.out.println("Number of house is "+ City.housesNumber);
-        if(!city.houses.isEmpty()) {
+        city.recountCitySize();
+        System.out.println("Number of house is "+ city.getHousesNumber());
+        if(city.getHousesNumber()!=0) {
             System.out.print("House numbers are:\n");
-            for (House house : city.houses)
+            for (House house : city.getHouses())
                 System.out.println("№" + house.getNumber() + " ");
         }
     }
 
     private static void clearCity(){
-        city.houses.removeAll(city.houses);
+        city.clearCity();
         House.zeroingCounter();
         System.out.println("You deleted all houses!");
     }
