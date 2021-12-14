@@ -3,7 +3,6 @@ package com;
 import com.house.House;
 
 import java.util.LinkedHashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 public class City {
@@ -40,10 +39,6 @@ public class City {
         return null;
     }
 
-    public String getName(){
-        return this.name;
-    }
-
     public Set<House> getHouses(){
         return houses;
     }
@@ -77,9 +72,5 @@ public class City {
 
     public int getHousesNumber(){
         return housesNumber;
-    }
-
-    public void setName(String name){
-        this.name=name;
     }
 }

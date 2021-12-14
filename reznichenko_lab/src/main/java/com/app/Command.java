@@ -8,9 +8,16 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 
 public class Command extends UserInterface{
+    private static String command;
+    private final static String[] commands={"build house","delete house","compare houses",
+            "compare apartments","house information","city information", "clear city", "help", "exit"};
 
     private Command(){
         throw new AssertionError();
+    }
+
+    public static String getCommand(){
+        return command;
     }
 
     private static void exit(){
@@ -238,9 +245,9 @@ public class Command extends UserInterface{
     public static void command(String command){
         for(String string: commands)
             if(command.equalsIgnoreCase(string)){
-                UserInterface.command=string;
+                Command.command =string;
                 return;
             }
-        UserInterface.command=null;
+        Command.command=null;
     }
 }

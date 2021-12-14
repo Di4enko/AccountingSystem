@@ -10,9 +10,6 @@ public class UserInterface {
     protected static Scanner in;
     protected static City city;
     protected static FileController fileController;
-    protected final static String[] commands={"build house","delete house","compare houses",
-            "compare apartments","house information","city information", "clear city", "help", "exit"};
-    protected static String command;
 
     public UserInterface(){
         status=true;
@@ -38,7 +35,7 @@ public class UserInterface {
         String inputs = in.nextLine();
         if (!inputs.isBlank()) {
             Command.command(inputs);
-            if (command!= null) {
+            if (Command.getCommand() == null) {
                 Command.accept();
             } else {
                 System.err.println("Incorrect command!\nEnter help to see the list of possible commands.");
